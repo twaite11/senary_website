@@ -377,7 +377,7 @@ const SenaryLandingPage = () => {
         </section>
 
         <section style={styles.ctaSection}>
-          <p style={styles.ctaLabel}>— Open for Technical Partnerships</p>
+          <p style={styles.ctaLabel}>In Silico Precision // In Vivo Destruction</p>
           <div style={styles.ctaRow}>
             <button type="button" onClick={() => setContactModalOpen(true)} style={styles.button}>
               Contact HQ
