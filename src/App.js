@@ -268,21 +268,22 @@ const styles = {
 
 const LOADING_STEPS = ['> IDENTIFYING_SENARY_SYSTEM...', '> VALIDATING_SCAFFOLDS...', '> READY.'];
 
+const TERMINAL_LOGS = [
+  'INITIATING NCBI_MINER...',
+  'SCANNING METAGENOMIC DATABASES...',
+  'SCAFFOLD IDENTIFIED: SB-13D-09',
+  'VALIDATING HEPN DOMAINS...',
+  'MATCHMAKER: SCANNING TCGA FUSION EVENTS...',
+  'LEAD CANDIDATE: SPSB4-ACPL2',
+  'PFS STATUS: VALIDATED',
+  'ENCRYPTING STEALTH_MODE...',
+];
+
 const SenaryLandingPage = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [loadingStep, setLoadingStep] = useState(0);
   const [contactModalOpen, setContactModalOpen] = useState(false);
   const [terminalText, setTerminalText] = useState('');
-  const logs = [
-    'INITIATING NCBI_MINER...',
-    'SCANNING METAGENOMIC DATABASES...',
-    'SCAFFOLD IDENTIFIED: SB-13D-09',
-    'VALIDATING HEPN DOMAINS...',
-    'MATCHMAKER: SCANNING TCGA FUSION EVENTS...',
-    'LEAD CANDIDATE: SPSB4-ACPL2',
-    'PFS STATUS: VALIDATED',
-    'ENCRYPTING STEALTH_MODE...',
-  ];
 
   useEffect(() => {
     const t1 = setTimeout(() => setLoadingStep(1), 900);
@@ -295,7 +296,7 @@ const SenaryLandingPage = () => {
     if (isLoading) return;
     let i = 0;
     const interval = setInterval(() => {
-      setTerminalText(logs[i % logs.length]);
+      setTerminalText(TERMINAL_LOGS[i % TERMINAL_LOGS.length]);
       i++;
     }, 3000);
     return () => clearInterval(interval);
@@ -406,7 +407,7 @@ const SenaryLandingPage = () => {
                 Actively seeking funding and partnerships.
               </p>
               <p style={{ ...styles.modalText, ...styles.modalEmail }}>
-                Email me:{' '}
+                Email us:{' '}
                 <a href="mailto:tyco711@gmail.com" style={styles.modalEmailLink}>
                   tyco711@gmail.com
                 </a>
