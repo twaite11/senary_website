@@ -18,3 +18,9 @@ body {
   0%, 50% { opacity: 1; }
   51%, 100% { opacity: 0; }
 }
+
+@media (max-width: 768px) {
+  .asterisk-wave {
+    opacity: 0.04;
+  }
+}

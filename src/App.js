@@ -337,7 +337,7 @@ const SenaryLandingPage = () => {
 
   return (
     <div style={styles.page}>
-      <div style={styles.asteriskWave} aria-hidden>
+      <div className="asterisk-wave" style={styles.asteriskWave} aria-hidden>
         {Array.from({ length: waveRows }, (_, i) => (
           <div
             key={i}
