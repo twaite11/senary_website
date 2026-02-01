@@ -370,9 +370,9 @@ const SenaryLandingPage = () => {
             <span style={styles.headlineAccent}>COLLATERAL DAMAGE</span>
           </h2>
           <p style={styles.body}>
-            The contrarion approach: We are weaponizing the greatest "bug" of a novel enzyme class into a precision weapon against solid tumors.
-            By harnessing conditional collateral RNA degradation, we create irreversible suicide switches
-            triggered only by tumor-specific fusion transcripts.
+            The contrarion approach: We wield the unique behavior of a novel class of 
+            CRISPR enzymes - often considered a liability - as a precision weapon 
+            against solid tumors.  
           </p>
         </section>
 
