@@ -370,7 +370,7 @@ const SenaryLandingPage = () => {
             <span style={styles.headlineAccent}>COLLATERAL DAMAGE</span>
           </h2>
           <p style={styles.body}>
-            The contrarion approach: We wield the unique behavior of a novel class of 
+            The contrarion approach: We wield deep learning tools and the unique behavior of a novel class of 
             CRISPR enzymes - often considered a liability - as a precision weapon 
             against solid tumors.  
           </p>
