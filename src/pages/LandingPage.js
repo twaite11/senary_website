@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { AsteriskWave } from '../senary/AsteriskWave';
 import { styles, LOADING_STEPS, TERMINAL_LOGS } from '../senary/styles';
+import InvestorDeckModal from '../components/InvestorDeckModal';
 
 const navLink = {
   color: '#6B6B6B',
@@ -17,6 +18,7 @@ const LandingPage = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [loadingStep, setLoadingStep] = useState(0);
   const [contactModalOpen, setContactModalOpen] = useState(false);
+  const [investorModalOpen, setInvestorModalOpen] = useState(false);
   const [terminalText, setTerminalText] = useState('');
 
   useEffect(() => {
@@ -41,13 +43,16 @@ const LandingPage = () => {
   }, [isLoading]);
 
   useEffect(() => {
-    if (!contactModalOpen) return;
+    if (!contactModalOpen && !investorModalOpen) return;
     const onKeyDown = (e) => {
-      if (e.key === 'Escape') setContactModalOpen(false);
+      if (e.key === 'Escape') {
+        setContactModalOpen(false);
+        setInvestorModalOpen(false);
+      }
     };
     window.addEventListener('keydown', onKeyDown);
     return () => window.removeEventListener('keydown', onKeyDown);
-  }, [contactModalOpen]);
+  }, [contactModalOpen, investorModalOpen]);
 
   if (isLoading) {
     return (
@@ -101,6 +106,18 @@ const LandingPage = () => {
               <button type="button" onClick={() => setContactModalOpen(true)} style={styles.button}>
                 Contact HQ
               </button>
+              <button
+                type="button"
+                onClick={() => setInvestorModalOpen(true)}
+                style={{
+                  ...styles.pill,
+                  cursor: 'pointer',
+                  backgroundColor: '#FAF9F7',
+                  fontFamily: 'inherit',
+                }}
+              >
+                Investor deck
+              </button>
               <div style={styles.pill}>Status: Stealth Mode</div>
             </div>
           </section>
@@ -134,6 +151,8 @@ const LandingPage = () => {
               </div>
             </div>
           )}
+
+          <InvestorDeckModal open={investorModalOpen} onClose={() => setInvestorModalOpen(false)} />
         </main>
 
         <footer style={styles.footer}>
