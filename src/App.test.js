@@ -1,8 +1,17 @@
-import { render, screen } from '@testing-library/react';
-import App from './App';
+import { render, screen, waitFor } from '@testing-library/react';
+import { MemoryRouter } from 'react-router-dom';
+import { AppRoutes } from './App';
 
-test('renders learn react link', () => {
-  render(<App />);
-  const linkElement = screen.getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
+test('renders Senary landing after intro', async () => {
+  render(
+    <MemoryRouter initialEntries={['/']}>
+      <AppRoutes />
+    </MemoryRouter>,
+  );
+  await waitFor(
+    () => {
+      expect(screen.getByText(/SENARY BIO/i)).toBeInTheDocument();
+    },
+    { timeout: 5000 },
+  );
 });
