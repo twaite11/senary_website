@@ -1,18 +1,37 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import { AsteriskWave } from '../senary/AsteriskWave';
 import { styles, LOADING_STEPS, TERMINAL_LOGS } from '../senary/styles';
 import InvestorDeckModal from '../components/InvestorDeckModal';
+import { getAllPostsMerged, subscribeBlogChanged } from '../blog/storage';
 
-const navLink = {
-  color: '#6B6B6B',
-  fontSize: '0.65rem',
+const blogNavButton = {
+  display: 'inline-block',
+  color: '#1C1C1C',
+  backgroundColor: '#FAF9F7',
+  fontSize: '0.8rem',
+  fontWeight: 600,
   textTransform: 'uppercase',
-  letterSpacing: '0.14em',
+  letterSpacing: '0.16em',
   textDecoration: 'none',
-  borderBottom: '1px solid #E8E6E3',
-  paddingBottom: '0.1rem',
+  padding: '0.65rem 1.25rem',
+  border: '1px solid #1C1C1C',
+  lineHeight: 1.2,
+  transition: 'background-color 0.2s ease, color 0.2s ease',
 };
+
+function formatPostDate(iso) {
+  if (!iso) return '';
+  try {
+    return new Intl.DateTimeFormat('en-US', {
+      year: 'numeric',
+      month: 'short',
+      day: 'numeric',
+    }).format(new Date(iso));
+  } catch {
+    return '';
+  }
+}
 
 const LandingPage = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -20,6 +39,17 @@ const LandingPage = () => {
   const [contactModalOpen, setContactModalOpen] = useState(false);
   const [investorModalOpen, setInvestorModalOpen] = useState(false);
   const [terminalText, setTerminalText] = useState('');
+  const [blogPosts, setBlogPosts] = useState([]);
+
+  const reloadPosts = useCallback(() => {
+    getAllPostsMerged().then(setBlogPosts);
+  }, []);
+
+  useEffect(() => {
+    if (isLoading) return undefined;
+    reloadPosts();
+    return subscribeBlogChanged(reloadPosts);
+  }, [isLoading, reloadPosts]);
 
   useEffect(() => {
     const t1 = setTimeout(() => setLoadingStep(1), 900);
@@ -67,8 +97,14 @@ const LandingPage = () => {
     );
   }
 
+  const pageScrollable = {
+    ...styles.page,
+    overflowX: 'hidden',
+    overflowY: 'auto',
+  };
+
   return (
-    <div style={styles.page}>
+    <div style={pageScrollable}>
       <AsteriskWave />
       <div style={styles.content}>
         <header style={styles.header}>
@@ -77,8 +113,8 @@ const LandingPage = () => {
             <p style={styles.tagline}>In Silico Precision // In Vivo Destruction</p>
           </div>
           <div style={styles.meta}>
-            <p style={styles.metaLine}>
-              <Link to="/blog" style={navLink}>
+            <p style={{ ...styles.metaLine, marginBottom: '0.65rem' }}>
+              <Link to="/blog" style={blogNavButton} className="blog-header-nav">
                 Blog
               </Link>
             </p>
@@ -87,40 +123,149 @@ const LandingPage = () => {
           </div>
         </header>
 
-        <main style={styles.main}>
-          <section>
-            <h2 style={styles.headline}>
-              REPROGRAMMING
-              <br />
-              <span style={styles.headlineAccent}>COLLATERAL DAMAGE</span>
-            </h2>
-            <p style={styles.body}>
-              The contrarian approach: We wield deep learning tools and the unique behavior of a novel class of
-              CRISPR enzymes - often considered a liability - as a precision weapon against solid tumors.
-            </p>
-          </section>
+        <main style={{ ...styles.main, justifyContent: 'flex-start', paddingTop: '1rem' }}>
+          <div
+            style={{
+              minHeight: 'min(78vh, 52rem)',
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'center',
+            }}
+          >
+            <section>
+              <h2 style={styles.headline}>
+                REPROGRAMMING
+                <br />
+                <span style={styles.headlineAccent}>COLLATERAL DAMAGE</span>
+              </h2>
+              <p style={styles.body}>
+                The contrarian approach: We wield deep learning tools and the unique behavior of a novel class of
+                CRISPR enzymes - often considered a liability - as a precision weapon against solid tumors.
+              </p>
+            </section>
 
-          <section style={styles.ctaSection}>
-            <p style={styles.ctaLabel}>In Silico Precision // In Vivo Destruction</p>
-            <div style={styles.ctaRow}>
-              <button type="button" onClick={() => setContactModalOpen(true)} style={styles.button}>
-                Contact HQ
-              </button>
-              <button
-                type="button"
-                onClick={() => setInvestorModalOpen(true)}
+            <section style={styles.ctaSection}>
+              <p style={styles.ctaLabel}>In Silico Precision // In Vivo Destruction</p>
+              <div style={styles.ctaRow}>
+                <button type="button" onClick={() => setContactModalOpen(true)} style={styles.button}>
+                  Contact HQ
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setInvestorModalOpen(true)}
+                  style={{
+                    ...styles.pill,
+                    cursor: 'pointer',
+                    backgroundColor: '#FAF9F7',
+                    fontFamily: 'inherit',
+                  }}
+                >
+                  Investor deck
+                </button>
+                <div style={styles.pill}>Status: Stealth Mode</div>
+              </div>
+            </section>
+          </div>
+
+          {blogPosts.length > 0 ? (
+            <section
+              style={{
+                width: '100%',
+                maxWidth: '56rem',
+                margin: '0 auto',
+                padding: '3rem 0 4rem',
+                borderTop: '1px solid #E8E6E3',
+              }}
+              aria-label="Latest posts"
+            >
+              <p
                 style={{
-                  ...styles.pill,
-                  cursor: 'pointer',
-                  backgroundColor: '#FAF9F7',
-                  fontFamily: 'inherit',
+                  fontSize: '0.7rem',
+                  fontWeight: 600,
+                  textTransform: 'uppercase',
+                  letterSpacing: '0.22em',
+                  color: '#6B6B6B',
+                  margin: '0 0 1.75rem',
                 }}
               >
-                Investor deck
-              </button>
-              <div style={styles.pill}>Status: Stealth Mode</div>
-            </div>
-          </section>
+                Scroll — latest writing
+              </p>
+              <div
+                style={{
+                  display: 'grid',
+                  gridTemplateColumns: 'repeat(auto-fill, minmax(15rem, 1fr))',
+                  gap: '1.5rem',
+                }}
+              >
+                {blogPosts.map((p) => (
+                  <Link
+                    key={p.id}
+                    to={`/blog/${encodeURIComponent(p.slug)}`}
+                    style={{
+                      textDecoration: 'none',
+                      color: 'inherit',
+                      display: 'block',
+                      border: '1px solid #E8E6E3',
+                      backgroundColor: '#fff',
+                      overflow: 'hidden',
+                      transition: 'border-color 0.2s ease, box-shadow 0.2s ease',
+                    }}
+                    className="landing-blog-card"
+                  >
+                    <div style={{ aspectRatio: '4 / 3', backgroundColor: '#E8E6E3', position: 'relative' }}>
+                      {p.imageDataUrl ? (
+                        <img
+                          src={p.imageDataUrl}
+                          alt=""
+                          style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+                        />
+                      ) : (
+                        <div
+                          style={{
+                            width: '100%',
+                            height: '100%',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            fontSize: '0.7rem',
+                            letterSpacing: '0.2em',
+                            textTransform: 'uppercase',
+                            color: '#8A8A8A',
+                          }}
+                        >
+                          S6
+                        </div>
+                      )}
+                    </div>
+                    <div style={{ padding: '1rem 1.1rem 1.15rem' }}>
+                      <h3
+                        style={{
+                          fontSize: '1rem',
+                          fontWeight: 600,
+                          letterSpacing: '-0.02em',
+                          lineHeight: 1.25,
+                          margin: '0 0 0.45rem',
+                        }}
+                      >
+                        {p.title}
+                      </h3>
+                      <p
+                        style={{
+                          margin: 0,
+                          fontSize: '0.65rem',
+                          textTransform: 'uppercase',
+                          letterSpacing: '0.12em',
+                          color: '#6B6B6B',
+                        }}
+                      >
+                        {formatPostDate(p.createdAt)}
+                      </p>
+                    </div>
+                  </Link>
+                ))}
+              </div>
+            </section>
+          ) : null}
 
           {contactModalOpen && (
             <div

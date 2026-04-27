@@ -24,3 +24,13 @@ body {
     opacity: 0.04;
   }
 }
+
+.landing-blog-card:hover {
+  border-color: #1c1c1c;
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.07);
+}
+
+.blog-header-nav:hover {
+  background-color: #1c1c1c;
+  color: #faf9f7;
+}
