@@ -190,19 +190,23 @@ export default function BlogAdmin() {
       <div style={styles.content}>
         <header style={styles.header}>
           <div>
-            <Link to="/" style={{ ...styles.logo, textDecoration: 'none', color: 'inherit', display: 'block' }}>
+            <Link
+              to="/"
+              style={{ ...styles.logo, textDecoration: 'none', color: 'inherit', display: 'block' }}
+              className="senary-logo-link"
+            >
               [S6] SENARY BIO
             </Link>
             <p style={styles.tagline}>Publish</p>
           </div>
           <div style={styles.meta}>
             <p style={styles.metaLine}>
-              <Link to="/blog" style={navLink}>
+              <Link to="/blog" style={navLink} className="senary-nav-link">
                 Blog
               </Link>
             </p>
             <p style={styles.metaLine}>
-              <Link to="/" style={navLink}>
+              <Link to="/" style={navLink} className="senary-nav-link">
                 Home
               </Link>
             </p>
@@ -240,7 +244,7 @@ export default function BlogAdmin() {
               {loginError ? (
                 <p style={{ color: '#8b2942', fontSize: '0.85rem', marginBottom: '1rem' }}>{loginError}</p>
               ) : null}
-              <button type="submit" style={styles.button}>
+              <button type="submit" style={styles.button} className="senary-btn-primary">
                 Sign in
               </button>
             </form>
@@ -271,6 +275,7 @@ export default function BlogAdmin() {
                     background: 'transparent',
                     fontFamily: 'inherit',
                   }}
+                  className="senary-btn-outline"
                 >
                   Sign out
                 </button>
@@ -323,7 +328,7 @@ export default function BlogAdmin() {
                   <p style={{ ...hint, color: '#3d5a40', marginBottom: '1rem' }}>{publishOk}</p>
                 ) : null}
 
-                <button type="submit" style={styles.button}>
+                <button type="submit" style={styles.button} className="senary-btn-primary">
                   Publish article
                 </button>
               </form>
@@ -335,7 +340,12 @@ export default function BlogAdmin() {
                   download the merged JSON and replace <code style={{ color: '#1C1C1C' }}>public/blog-posts.json</code>,
                   then commit and push.
                 </p>
-                <button type="button" onClick={onExportDeploy} style={{ ...styles.pill, cursor: 'pointer', background: 'transparent', fontFamily: 'inherit' }}>
+                <button
+                  type="button"
+                  onClick={onExportDeploy}
+                  style={{ ...styles.pill, cursor: 'pointer', background: 'transparent', fontFamily: 'inherit' }}
+                  className="senary-btn-outline"
+                >
                   Download blog-posts.json ({merged.length} posts)
                 </button>
               </section>

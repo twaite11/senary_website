@@ -25,12 +25,137 @@ body {
   }
 }
 
-.landing-blog-card:hover {
-  border-color: #1c1c1c;
-  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.07);
+.blog-header-nav {
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease,
+    transform 0.15s ease,
+    box-shadow 0.15s ease;
 }
 
 .blog-header-nav:hover {
   background-color: #1c1c1c;
   color: #faf9f7;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
+}
+
+/* Primary CTA (ink fill) */
+.senary-btn-primary {
+  transition:
+    background-color 0.2s ease,
+    transform 0.15s ease,
+    box-shadow 0.15s ease,
+    opacity 0.15s ease;
+}
+
+.senary-btn-primary:hover:not(:disabled) {
+  background-color: #333333 !important;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+}
+
+.senary-btn-primary:active:not(:disabled) {
+  transform: translateY(0);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+}
+
+.senary-btn-primary:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+a.senary-btn-primary:hover {
+  background-color: #333333 !important;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+}
+
+a.senary-btn-primary:active {
+  transform: translateY(0);
+}
+
+/* Outline / pill buttons */
+.senary-btn-outline {
+  transition:
+    border-color 0.2s ease,
+    color 0.2s ease,
+    background-color 0.2s ease,
+    transform 0.15s ease,
+    box-shadow 0.15s ease;
+}
+
+.senary-btn-outline:hover {
+  border-color: #1c1c1c !important;
+  color: #1c1c1c !important;
+  background-color: rgba(28, 28, 28, 0.04) !important;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
+}
+
+.senary-btn-outline:active {
+  transform: translateY(0);
+}
+
+.senary-modal-close {
+  transition:
+    color 0.15s ease,
+    transform 0.15s ease,
+    opacity 0.15s ease;
+}
+
+.senary-modal-close:hover {
+  color: #1c1c1c !important;
+  transform: scale(1.08);
+  opacity: 1;
+}
+
+.senary-nav-link {
+  transition:
+    color 0.15s ease,
+    border-color 0.15s ease,
+    opacity 0.15s ease;
+}
+
+.senary-nav-link:hover {
+  color: #1c1c1c !important;
+  border-bottom-color: #1c1c1c !important;
+}
+
+.senary-logo-link {
+  transition: opacity 0.15s ease;
+}
+
+.senary-logo-link:hover {
+  opacity: 0.75;
+}
+
+.senary-subtle-link {
+  transition: color 0.15s ease, opacity 0.15s ease;
+}
+
+.senary-subtle-link:hover {
+  color: #1c1c1c !important;
+  opacity: 0.92;
+}
+
+.senary-blog-row {
+  transition: background-color 0.15s ease;
+}
+
+.senary-blog-row:hover {
+  background-color: rgba(28, 28, 28, 0.035);
+}
+
+.landing-blog-card {
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    transform 0.15s ease;
+}
+
+.landing-blog-card:hover {
+  border-color: #1c1c1c;
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.07);
+  transform: translateY(-2px);
 }

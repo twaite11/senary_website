@@ -33,8 +33,18 @@ function formatPostDate(iso) {
   }
 }
 
+const INTRO_SESSION_KEY = 'senary_intro_loader_done';
+
+function readIntroDone() {
+  try {
+    return sessionStorage.getItem(INTRO_SESSION_KEY) === '1';
+  } catch {
+    return false;
+  }
+}
+
 const LandingPage = () => {
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(() => !readIntroDone());
   const [loadingStep, setLoadingStep] = useState(0);
   const [contactModalOpen, setContactModalOpen] = useState(false);
   const [investorModalOpen, setInvestorModalOpen] = useState(false);
@@ -52,9 +62,20 @@ const LandingPage = () => {
   }, [isLoading, reloadPosts]);
 
   useEffect(() => {
+    if (readIntroDone()) {
+      setIsLoading(false);
+      return undefined;
+    }
     const t1 = setTimeout(() => setLoadingStep(1), 900);
     const t2 = setTimeout(() => setLoadingStep(2), 1800);
-    const t3 = setTimeout(() => setIsLoading(false), 2800);
+    const t3 = setTimeout(() => {
+      setIsLoading(false);
+      try {
+        sessionStorage.setItem(INTRO_SESSION_KEY, '1');
+      } catch {
+        /* ignore */
+      }
+    }, 2800);
     return () => {
       clearTimeout(t1);
       clearTimeout(t2);
@@ -147,7 +168,12 @@ const LandingPage = () => {
             <section style={styles.ctaSection}>
               <p style={styles.ctaLabel}>In Silico Precision // In Vivo Destruction</p>
               <div style={styles.ctaRow}>
-                <button type="button" onClick={() => setContactModalOpen(true)} style={styles.button}>
+                <button
+                  type="button"
+                  onClick={() => setContactModalOpen(true)}
+                  style={styles.button}
+                  className="senary-btn-primary"
+                >
                   Contact HQ
                 </button>
                 <button
@@ -159,6 +185,7 @@ const LandingPage = () => {
                     backgroundColor: '#FAF9F7',
                     fontFamily: 'inherit',
                   }}
+                  className="senary-btn-outline"
                 >
                   Investor deck
                 </button>
@@ -279,6 +306,7 @@ const LandingPage = () => {
                 <button
                   type="button"
                   style={styles.modalClose}
+                  className="senary-modal-close"
                   onClick={() => setContactModalOpen(false)}
                   aria-label="Close"
                 >

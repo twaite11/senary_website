@@ -74,19 +74,23 @@ export default function BlogList() {
       <div style={styles.content}>
         <header style={styles.header}>
           <div>
-            <Link to="/" style={{ ...styles.logo, textDecoration: 'none', color: 'inherit', display: 'block' }}>
+            <Link
+              to="/"
+              style={{ ...styles.logo, textDecoration: 'none', color: 'inherit', display: 'block' }}
+              className="senary-logo-link"
+            >
               [S6] SENARY BIO
             </Link>
             <p style={styles.tagline}>Notes // Lab</p>
           </div>
           <div style={styles.meta}>
             <p style={styles.metaLine}>
-              <Link to="/" style={navLink}>
+              <Link to="/" style={navLink} className="senary-nav-link">
                 Home
               </Link>
             </p>
             <p style={styles.metaLine}>
-              <Link to="/blog/admin" style={navLink}>
+              <Link to="/blog/admin" style={navLink} className="senary-nav-link">
                 Publish
               </Link>
             </p>
@@ -116,7 +120,12 @@ export default function BlogList() {
               </p>
             ) : (
               posts.map((p) => (
-                <Link key={p.id} to={`/blog/${encodeURIComponent(p.slug)}`} style={postRow}>
+                <Link
+                  key={p.id}
+                  to={`/blog/${encodeURIComponent(p.slug)}`}
+                  style={postRow}
+                  className="senary-blog-row"
+                >
                   <h2 style={postTitle}>{p.title}</h2>
                   <p style={postMeta}>{formatDate(p.createdAt)}</p>
                 </Link>

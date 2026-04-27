@@ -89,18 +89,22 @@ export default function BlogPost() {
       <div style={styles.content}>
         <header style={styles.header}>
           <div>
-            <Link to="/" style={{ ...styles.logo, textDecoration: 'none', color: 'inherit', display: 'block' }}>
+            <Link
+              to="/"
+              style={{ ...styles.logo, textDecoration: 'none', color: 'inherit', display: 'block' }}
+              className="senary-logo-link"
+            >
               [S6] SENARY BIO
             </Link>
             <p style={styles.tagline}>
-              <Link to="/blog" style={{ color: '#6B6B6B', textDecoration: 'none' }}>
+              <Link to="/blog" style={{ color: '#6B6B6B', textDecoration: 'none' }} className="senary-subtle-link">
                 ← Blog
               </Link>
             </p>
           </div>
           <div style={styles.meta}>
             <p style={styles.metaLine}>
-              <Link to="/" style={navLink}>
+              <Link to="/" style={navLink} className="senary-nav-link">
                 Home
               </Link>
             </p>
@@ -113,7 +117,7 @@ export default function BlogPost() {
               <h1 style={titleStyle}>Not found</h1>
               <p style={bodyStyle}>This post does not exist or was removed.</p>
               <p style={{ marginTop: '2rem' }}>
-                <Link to="/blog" style={{ ...navLink, fontSize: '0.75rem' }}>
+                <Link to="/blog" style={{ ...navLink, fontSize: '0.75rem' }} className="senary-nav-link">
                   All posts
                 </Link>
               </p>

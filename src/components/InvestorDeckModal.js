@@ -118,7 +118,13 @@ export default function InvestorDeckModal({ open, onClose }) {
       aria-labelledby="investor-modal-title"
     >
       <div style={modalWide} onClick={(ev) => ev.stopPropagation()}>
-        <button type="button" style={styles.modalClose} onClick={onClose} aria-label="Close">
+        <button
+          type="button"
+          style={styles.modalClose}
+          className="senary-modal-close"
+          onClick={onClose}
+          aria-label="Close"
+        >
           ×
         </button>
 
@@ -157,7 +163,7 @@ export default function InvestorDeckModal({ open, onClose }) {
               {error ? (
                 <p style={{ color: '#8b2942', fontSize: '0.85rem', marginBottom: '1rem' }}>{error}</p>
               ) : null}
-              <button type="submit" style={styles.button} disabled={submitting}>
+              <button type="submit" style={styles.button} className="senary-btn-primary" disabled={submitting}>
                 {submitting ? 'Sending…' : 'View pitch deck'}
               </button>
             </form>
@@ -181,6 +187,7 @@ export default function InvestorDeckModal({ open, onClose }) {
                 target="_blank"
                 rel="noopener noreferrer"
                 style={styles.button}
+                className="senary-btn-primary"
                 onClick={() => onClose()}
               >
                 Open pitch deck
@@ -194,6 +201,7 @@ export default function InvestorDeckModal({ open, onClose }) {
                   background: 'transparent',
                   fontFamily: 'inherit',
                 }}
+                className="senary-btn-outline"
               >
                 Close
               </button>
